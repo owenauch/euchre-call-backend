@@ -31,6 +31,9 @@ router.use(function(req, res, next) {
   next()
 })
 
+// prefix routes with api
+app.use('/api', router)
+
 // create calls POST route
 router.route('/calls')
   .post(function(req, res) {
@@ -42,9 +45,6 @@ router.route('/calls')
       res.json({ message: 'Your likely very sketchy call saved successfully!'})
     })
   })
-
-// prefix routes with api
-app.use('/api', router)
 
 // set app to actually do stuff
 app.listen(port)
