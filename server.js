@@ -2,6 +2,10 @@ var express = require('express')
 var app = express()
 var bodyParser = require('body-parser')
 var mongoose = require('mongoose')
+var cors = require('cors')
+
+// allow CORS
+app.use(cors())
 
 // get secrets
 var fs = require('fs')
@@ -22,6 +26,10 @@ var port = process.env.PORT || 8000
 
 // create the router
 var router = express.Router()
+
+router.get('/', function(req, res) {
+    res.json({ message: 'hooray! welcome to our api!' });   
+});
 
 // create middleware to log information about all requests
 router.use(function(req, res, next) {

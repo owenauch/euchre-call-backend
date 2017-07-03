@@ -3,12 +3,12 @@ var Schema = mongoose.Schema
 
 var CallSchema = new Schema({
   hand: {
-    ace: String,
-    king: String,
-    queen: String,
-    jack: String,
-    ten: String,
-    nine: String
+    ace: Boolean,
+    king: Boolean,
+    queen: Boolean,
+    jack: Boolean,
+    ten: Boolean,
+    nine: Boolean
   },
 
   trump: String,
