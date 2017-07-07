@@ -1,8 +1,8 @@
 {
-  "name": "euchre-call-backend",
+  "name": "queen-nine-backend",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/owenauch/euchre-call-backend.git",
+  "repository": "https://github.com/owenauch/queen-nine-backend.git",
   "author": "Owen Auch <owenauch@wustl.edu>",
   "license": "MIT",
   "dependencies": {
