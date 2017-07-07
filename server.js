@@ -26,6 +26,7 @@ var port = process.env.PORT || 8000
 app.use(function(req, res, next) {
   console.log('---NEW REQUEST---')
   console.log('Request Method:', req.method)
+  console.log('Requst Route:', req.originalUrl)
   console.log('Time:', Date.now())
   next()
 })
