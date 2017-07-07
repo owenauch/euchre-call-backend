@@ -50,6 +50,11 @@ router.post('/login', function(req, res) {
   })
 })
 
+// create logout GET route
+router.get('/logout', function (req, res) {
+  req.session.destroy()
+  res.sendStatus(200)
+})
 
 // create calls POST route
 router.post('/calls', auth, function(req, res) {
