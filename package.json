@@ -2,13 +2,21 @@
   "name": "queen-nine-backend",
   "version": "1.0.0",
   "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
   "repository": "https://github.com/owenauch/queen-nine-backend.git",
   "author": "Owen Auch <owenauch@wustl.edu>",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^1.0.2",
     "body-parser": "^1.17.2",
     "cors": "^2.8.3",
     "express": "^4.15.3",
+    "express-session": "^1.15.3",
     "mongoose": "^4.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
