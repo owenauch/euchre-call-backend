@@ -17,6 +17,8 @@ var CallSchema = new Schema({
 
   wonHand: Boolean,
 
+  user: String,
+
   date: { type: Date, default: Date.now }
 })
 
