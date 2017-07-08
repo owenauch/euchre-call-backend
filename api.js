@@ -33,7 +33,7 @@ router.post('/login', function(req, res) {
 
   // check user password against password in DB
   User.findOne({ username: username }, function(error, user) {
-    if (error) {
+    if (error || !user) {
       return res.sendStatus(400)
       console.log('ERROR', error)
     } else {
