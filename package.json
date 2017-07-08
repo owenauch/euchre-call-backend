@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "dev": "nodemon server.js"
   },
   "repository": "https://github.com/owenauch/queen-nine-backend.git",
   "author": "Owen Auch <owenauch@wustl.edu>",

@@ -30,20 +30,29 @@ var auth = function(req, res, next) {
 router.post('/login', function(req, res) {
   var username = req.body.username
   var password = req.body.password
+  console.log('USERNAME', username)
+  console.log('PASSWORD', password)
 
   // check user password against password in DB
   User.findOne({ username: username }, function(error, user) {
-    if (error || !user) {
-      return res.sendStatus(400)
+    if (error) {
+      return res.sendStatus(500)
       console.log('ERROR', error)
+    } else if (!user) {
+      return res.sendStatus(401)
+      console.log('401: Couldn\'t find user in database')
     } else {
       user.comparePassword(password, function(error, isMatch) {
         if (error) {
           return res.sendStatus(401)
           console.log('ERROR', error)
-        } else {
+        } else if (isMatch) {
           req.session.user = username
           res.sendStatus(200)
+          console.log('200: User logged in successfully!')
+        } else {
+          res.sendStatus(401)
+          console.log('401: User password did not match database')
         }
       })
     }
