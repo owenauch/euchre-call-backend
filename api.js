@@ -26,12 +26,10 @@ var auth = function(req, res, next) {
     return res.sendStatus(401)
 }
 
-// create login POST route
-router.post('/login', function(req, res) {
+// login POST route
+router.post('/users/login', function(req, res) {
   var username = req.body.username
   var password = req.body.password
-  console.log('USERNAME', username)
-  console.log('PASSWORD', password)
 
   // check user password against password in DB
   User.findOne({ username: username }, function(error, user) {
@@ -59,8 +57,32 @@ router.post('/login', function(req, res) {
   })
 })
 
-// create logout GET route
-router.get('/logout', function (req, res) {
+// create account POST route
+router.post('/users/create', function(req, res) {
+  var username = req.body.username
+  var password = req.body.password
+  var secret = req.body.secret
+
+  // check secret against create account secret
+  if (secret === secrets.createAccountSecret) {
+    var user = new User({ username: username, password: password })
+    user.save(function(error) {
+      if (error) {
+        console.log('ERROR', error)
+        return res.sendStatus(500)
+      } else {
+        console.log('200: User created successfully!')
+        res.sendStatus(200)
+      }
+    })
+  } else {
+    console.log('401: Wrong secret, unable to create account.')
+    res.sendStatus(401)
+  }
+})
+
+// logout GET route
+router.get('/users/logout', function (req, res) {
   req.session.destroy()
   res.sendStatus(200)
 })
