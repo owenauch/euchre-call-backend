@@ -69,7 +69,7 @@ router.post('/users/create', function(req, res) {
     user.save(function(error) {
       if (error) {
         console.log('ERROR', error)
-        return res.sendStatus(500)
+        res.sendStatus(500)
       } else {
         console.log('200: User created successfully!')
         res.sendStatus(200)
@@ -97,7 +97,5 @@ router.post('/calls', auth, function(req, res) {
     res.json({ message: 'Your likely very sketchy call saved successfully!'})
   })
 })
-
-
 
 module.exports = router
