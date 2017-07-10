@@ -35,7 +35,7 @@ router.post('/users/login', function(req, res) {
   User.findOne({ username: username }, function(error, user) {
     if (error) {
       res.status(500)
-      res.json({ errors: error})
+      res.json({ errors: 'An unknown server error occurred!' })
       console.log('ERROR', error)
     } else if (!user) {
       res.status(401)
@@ -45,7 +45,7 @@ router.post('/users/login', function(req, res) {
       user.comparePassword(password, function(error, isMatch) {
         if (error) {
           res.status(500)
-          res.json({ errors: error})
+          res.json({ errors: 'An unknown server error occurred!' })
           console.log('ERROR', error)
         } else if (isMatch) {
           req.session.user = username
@@ -54,7 +54,7 @@ router.post('/users/login', function(req, res) {
           console.log('200: User logged in successfully!')
         } else {
           res.status(401)
-          res.json({ errors: 'User password is not correct!'})
+          res.json({ errors: 'User password is not correct!' })
           console.log('401: User password did not match database')
         }
       })
@@ -75,7 +75,7 @@ router.post('/users/create', function(req, res) {
       if (error) {
         console.log('ERROR', error)
         res.status(500)
-        res.json({ errors: error})
+        res.json({ errors: 'An unknown server error occurred!' })
       } else {
         console.log('200: User created successfully!')
         res.sendStatus(200)
