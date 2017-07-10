@@ -30,6 +30,12 @@ app.use(function(req, res, next) {
   console.log('Time:', Date.now())
   next()
 })
+  
+// middleware to set response content type to json always
+app.use(function (req, res, next) {
+  res.header("Content-Type",'application/json');
+  next()
+})
 
 // prefix routes with api, use external router
 app.use('/api', api)

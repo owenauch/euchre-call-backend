@@ -34,22 +34,27 @@ router.post('/users/login', function(req, res) {
   // check user password against password in DB
   User.findOne({ username: username }, function(error, user) {
     if (error) {
-      return res.sendStatus(500)
+      res.status(500)
+      res.json({ errors: error})
       console.log('ERROR', error)
     } else if (!user) {
-      return res.sendStatus(401)
-      console.log('401: Couldn\'t find user in database')
+      res.status(401)
+      res.json({ errors: 'Could not find user in database, try again with different username!'})
+      console.log('401: Could not find user in database')
     } else {
       user.comparePassword(password, function(error, isMatch) {
         if (error) {
-          return res.sendStatus(401)
+          res.status(500)
+          res.json({ errors: error})
           console.log('ERROR', error)
         } else if (isMatch) {
           req.session.user = username
-          res.sendStatus(200)
+          res.status(200)
+          res.json({ username: username })
           console.log('200: User logged in successfully!')
         } else {
-          res.sendStatus(401)
+          res.status(401)
+          res.json({ errors: 'User password is not correct!'})
           console.log('401: User password did not match database')
         }
       })
@@ -69,15 +74,17 @@ router.post('/users/create', function(req, res) {
     user.save(function(error) {
       if (error) {
         console.log('ERROR', error)
-        res.sendStatus(500)
+        res.status(500)
+        res.json({ errors: error})
       } else {
         console.log('200: User created successfully!')
         res.sendStatus(200)
       }
     })
   } else {
-    console.log('401: Wrong secret, unable to create account.')
-    res.sendStatus(401)
+    console.log('401: Wrong secret code, unable to create account.')
+    res.status(401)
+    res.json({ errors: 'Wrong secret code, unable to create account' })
   }
 })
 
