@@ -99,7 +99,8 @@ router.post('/calls', auth, function(req, res) {
   var call = new Call(req.body)
   call.save(function(err) {
     if (err) {
-      res.send(err)
+      res.status(500)
+      res.json({ errors: 'Your call failed to save!' })
     }
     res.json({ message: 'Your likely very sketchy call saved successfully!'})
   })
