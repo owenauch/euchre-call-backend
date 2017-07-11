@@ -23,7 +23,8 @@ var auth = function(req, res, next) {
   if (req.session && req.session.user)
     return next()
   else
-    return res.sendStatus(401)
+    res.status(401)
+    return res.json({ errors: 'Session ended, please log in' })
 }
 
 // login POST route
