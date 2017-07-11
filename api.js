@@ -24,7 +24,7 @@ var auth = function(req, res, next) {
     return next()
   else
     res.status(401)
-    return res.json({ errors: 'Session ended, please log in' })
+    return res.json({ errors: 'Unauthorized, please log in' })
 }
 
 // login POST route
