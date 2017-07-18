@@ -78,6 +78,7 @@ router.post('/users/create', function(req, res) {
         res.status(500)
         res.json({ errors: 'An unknown server error occurred!' })
       } else {
+        req.session.user = username
         console.log('200: User created successfully!')
         res.sendStatus(200)
       }
