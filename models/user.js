@@ -3,6 +3,8 @@ var Schema = mongoose.Schema
 var bcrypt = require('bcrypt')
 var SALT_WORK_FACTOR = 10
 
+var Call = require('./call')
+
 // SCHEMA -- define the data fields
 var UserSchema = new Schema({
   username: { type: String, required: true, index: { unique: true } },
@@ -43,6 +45,16 @@ UserSchema.methods.comparePassword = function(candidatePassword, callBack) {
         return callBack(error, null)
       }
       callBack(null, isMatch)
+  })
+}
+
+// METHOD -- get call count by user
+UserSchema.methods.getCallCount = function(callBack) {
+  Call.count({ 'user': this.username }, function(error, count) {
+    if (error) {
+      return callBack(error)
+    }
+    callBack(null, count)
   })
 }
 

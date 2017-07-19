@@ -1,5 +1,5 @@
 var express = require('express')
-
+var auth = require('../middleware/auth')
 var User = require('../models/user')
 
 var fs = require('fs')
@@ -74,6 +74,37 @@ router.post('/create', function(req, res) {
 router.get('/logout', function (req, res) {
   req.session.destroy()
   res.sendStatus(200)
+})
+
+// call info GET route
+router.get('/:username/calls', auth, function (req, res) {
+  const username = req.params.username
+
+   User.findOne({ username: username }, function(error, user) {
+    if (error) {
+      res.status(500)
+      res.json({ errors: 'An unknown server error occurred!' })
+      console.log('ERROR', error)
+    } else if (!user) {
+      res.status(401)
+      res.json({ errors: 'Could not find user in database, try again with different username!'})
+      console.log('401: Could not find user in database')
+    } else {
+      user.getCallCount(function(error, callCount) {
+        if (error) {
+          res.status(500)
+          res.json({ errors: 'An unknown server error occurred!' })
+          console.log('ERROR', error)
+        } else {
+          res.status(200)
+          res.json({
+            callCount: callCount
+          })
+          console.log('200: Call counts fetched successfully')
+        }
+      })
+    }
+  })
 })
 
 module.exports = router

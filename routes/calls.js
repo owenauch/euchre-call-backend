@@ -1,19 +1,11 @@
 // routes/calls.js
 var express = require('express')
+var auth = require('../middleware/auth')
 
 // define models
 var Call = require('../models/call')
 
 var router = express.Router()
-
-// session authentication middleware
-var auth = function(req, res, next) {
-  if (req.session && req.session.user)
-    return next()
-  else
-    res.status(401)
-    return res.json({ errors: 'Unauthorized, please log in' })
-}
 
 // create calls POST route
 router.post('/create', auth, function(req, res) {
