@@ -108,4 +108,7 @@ router.post('/calls', auth, function(req, res) {
   })
 })
 
-module.exports = router
+module.exports = {
+  router: router,
+  auth: auth
+}

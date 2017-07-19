@@ -38,7 +38,7 @@ app.use(function (req, res, next) {
 })
 
 // prefix routes with api, use external router
-app.use('/api', api)
+app.use('/api', api.router)
 
 // set app to actually do stuff
 app.listen(port)
