@@ -3,7 +3,7 @@ var app = express()
 var bodyParser = require('body-parser')
 var mongoose = require('mongoose')
 var cors = require('cors')
-var api = require('./api')
+var api = require('./routes/api')
 
 // allow CORS
 app.use(cors())

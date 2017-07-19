@@ -1,34 +1,14 @@
 var express = require('express')
-var session = require('express-session')
 
-// define models
-var Call = require('./models/call')
-var User = require('./models/user')
+var User = require('../models/user')
 
-// get secrets
 var fs = require('fs')
 var secrets = JSON.parse(fs.readFileSync('secrets.json', 'utf8'))
 
 var router = express.Router()
 
-// setup and use session
-router.use(session({
-    secret: secrets.sessionSecret,
-    resave: true,
-    saveUninitialized: true
-}))
-
-// session authentication middleware
-var auth = function(req, res, next) {
-  if (req.session && req.session.user)
-    return next()
-  else
-    res.status(401)
-    return res.json({ errors: 'Unauthorized, please log in' })
-}
-
 // login POST route
-router.post('/users/login', function(req, res) {
+router.post('/login', function(req, res) {
   var username = req.body.username
   var password = req.body.password
 
@@ -64,7 +44,7 @@ router.post('/users/login', function(req, res) {
 })
 
 // create account POST route
-router.post('/users/create', function(req, res) {
+router.post('/create', function(req, res) {
   var username = req.body.username
   var password = req.body.password
   var secret = req.body.secret
@@ -91,24 +71,9 @@ router.post('/users/create', function(req, res) {
 })
 
 // logout GET route
-router.get('/users/logout', function (req, res) {
+router.get('/logout', function (req, res) {
   req.session.destroy()
   res.sendStatus(200)
 })
 
-// create calls POST route
-router.post('/calls', auth, function(req, res) {
-  var call = new Call(req.body)
-  call.save(function(err) {
-    if (err) {
-      res.status(500)
-      res.json({ errors: 'Your call failed to save!' })
-    }
-    res.json({ message: 'Your likely very sketchy call saved successfully!'})
-  })
-})
-
-module.exports = {
-  router: router,
-  auth: auth
-}
+module.exports = router
