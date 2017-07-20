@@ -19,4 +19,31 @@ router.post('/create', auth, function(req, res) {
   })
 })
 
+// user calls GET route
+router.get('/:username', function(req, res) {
+  const username = req.params.username
+
+  Call.count({ user: username }, function (error, userCount) {
+    if (error) {
+      res.status(500)
+      res.json({ errors: 'An unknown server error occurred!' })
+      console.log('ERROR', error)
+    } else {
+      Call.count({}, function (error, totalCount) {
+        if (error) {
+          res.status(500)
+          res.json({ errors: 'An unknown server error occurred!' })
+          console.log('ERROR', error)
+        } else {
+          res.status(200)
+          res.json({
+            userCount: userCount,
+            totalCount: totalCount
+          })
+        }
+      })
+    }
+  })
+})
+
 module.exports = router

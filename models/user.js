@@ -48,14 +48,4 @@ UserSchema.methods.comparePassword = function(candidatePassword, callBack) {
   })
 }
 
-// METHOD -- get call count by user
-UserSchema.methods.getCallCount = function(callBack) {
-  Call.count({ 'user': this.username }, function(error, count) {
-    if (error) {
-      return callBack(error)
-    }
-    callBack(null, count)
-  })
-}
-
 module.exports = mongoose.model('User', UserSchema)
