@@ -20,7 +20,7 @@ router.post('/create', auth, function(req, res) {
 })
 
 // user calls GET route
-router.get('/:username', function(req, res) {
+router.get('/:username', auth, function(req, res) {
   const username = req.params.username
 
   Call.count({ user: username }, function (error, userCount) {
