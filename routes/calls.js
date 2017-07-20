@@ -14,8 +14,10 @@ router.post('/create', auth, function(req, res) {
     if (err) {
       res.status(500)
       res.json({ errors: 'Your call failed to save!' })
+      console.log('500: Call failed to save')
     }
     res.json({ message: 'Your likely very sketchy call saved successfully!'})
+    console.log('200: Call saved successfully!')
   })
 })
 
@@ -40,6 +42,7 @@ router.get('/:username', auth, function(req, res) {
             userCount: userCount,
             totalCount: totalCount
           })
+          console.log('200: Count data sent successfully!')
         }
       })
     }
